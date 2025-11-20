@@ -13,7 +13,7 @@ export const wishlistRouter = Router();
 wishlistRouter.get("/wishlist/:id", getWishlistItemsByUserIdController);
 
 // Add item to wishlist
-wishlistRouter.post("/wishlist/", addToWishlistController);
+wishlistRouter.post("/wishlist", addToWishlistController);
 
 // Update wishlist item
 wishlistRouter.patch("/wishlist/:id", updateWishlistItemController);
