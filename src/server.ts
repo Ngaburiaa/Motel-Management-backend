@@ -8,7 +8,6 @@ import { hotelRouter } from "./hotel/hotel.route";
 import { roomRouter } from "./room/room.route";
 import { ticketRouter } from "./supportTicket/ticket.route";
 import { paymentRouter } from "./payment/payment.route";
-import { logger } from "./middleware/logger";
 import { authRouter } from "./auth/auth.route";
 import { amenityRouter } from "./amenities/amenities.route";
 import { addressRouter } from "./addresses/addresses.route";
@@ -22,43 +21,45 @@ import { webhookHandler } from "./stripe/stripe.webhook";
 import { reviewRouter } from "./reviews/review.routes";
 import { roomTypeRouter } from "./roomType/roomType.routes";
 import { analyticsRouter } from "./analytics/analytics.route";
+import { logger } from "./middleware/logger";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("✅ Hotel Room Booking Backend is running.");
-});
-
-// 🚨 Stripe Webhook: must come BEFORE express.json()
+// ✅ Stripe Webhook: MUST come BEFORE express.json()
 app.post(
   "/api/webhook",
   (req, res, next) => {
-    //  Disable compression if Render applies any
-    res.set("Content-Encoding", "identity");
+    res.set("Content-Encoding", "identity"); // prevent Render from compressing
     next();
   },
   express.raw({ type: "application/json" }),
   webhookHandler
 );
 
-// CORS
+// 🌍 CORS setup (for local & deployed frontend)
 app.use(
   cors({
-    origin: ["https://motel-management-frontend-6i4k222tb-ngaburia.vercel.app", "https://motel-management-frontend.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [
+      "http://localhost:5173",
+      "https://motel-management-frontend-6i4k222tb-ngaburia.vercel.app",
+      "https://motel-management-frontend.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
+// ✅ Handle preflight requests for all routes
+app.options("*", cors());
 
-// 🧾 Logging
+// 🧾 Logging middleware
 app.use(logger);
 
-// 🔍 Body Parsers (for all other routes)
+// 🔍 Body parsers (for all other routes)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -82,7 +83,12 @@ app.use("/api", stripeRouter);
 app.use("/api", reviewRouter);
 app.use("/api", roomTypeRouter);
 
-// 🚀 Start Server
+// 🌟 Root route
+app.get("/", (req: Request, res: Response) => {
+  res.send("✅ Hotel Room Booking Backend is running.");
+});
+
+// 🚀 Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
