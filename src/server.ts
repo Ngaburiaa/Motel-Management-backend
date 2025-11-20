@@ -47,7 +47,7 @@ app.post(
 // CORS
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://motel-management-frontend.vercel.app"],
+    origin: ["https://motel-management-frontend-6i4k222tb-ngaburia.vercel.app", "https://motel-management-frontend.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

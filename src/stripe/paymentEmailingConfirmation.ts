@@ -149,7 +149,7 @@ export const sendBookingEmail = async (
   let subject = "";
   let html = "";
 
-  const clientURL = process.env.FRONTEND_URL || "https://stay-cloud-rooms.netlify.app/";
+  const clientURL = process.env.FRONTEND_URL || "https://motel-management-frontend.vercel.app";
 
   switch (type) {
     case "success":
