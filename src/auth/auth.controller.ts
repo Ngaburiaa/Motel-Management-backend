@@ -32,7 +32,7 @@ export const createUser: RequestHandler = async (
       "Account created successfully",
       `${user.firstName} ${user.lastName}`,
       "Welcome to our Hotel service! Your account has been successfully created.",
-      "https://stay-cloud-rooms.netlify.app",
+      "https://motel-management-frontend.vercel.app/",
       "Go to Dashboard"
     );
     if (!results) {
@@ -133,7 +133,7 @@ export const passwordReset: RequestHandler = async (
 
     console.log("Generated reset token:", resetToken); // Debug log
 
-    const resetLink = `https://stay-cloud-rooms.netlify.app/reset-password/${resetToken}`;
+    const resetLink = `https://motel-management-frontend.vercel.app/reset-password/${resetToken}`;
     const emailResult = await sendNotificationEmail(
       email,
       "Password Reset Request",
