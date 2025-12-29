@@ -95,7 +95,6 @@ export type TErrorResponse = TBaseResponse & {
 export type TAdminDashboardStatsSuccessResponse = TSuccessResponse<TAdminDashboardStats>;
 export type TAdminDashboardStatsErrorResponse = TErrorResponse;
 
-// Add these to adminDashboardTypes.ts
 
 // Monthly Bookings
 export type TMonthlyBookingsData = {

@@ -11,24 +11,31 @@ export const analyticsRouter = express.Router();
 
 // Admin-only route
 analyticsRouter.get(
-  "/analytics/admin",authenticated, adminOnly,
+  "/analytics/admin",
+  authenticated,
+  adminOnly,
   getAdminAnalytics
 );
 
 // Owner-only route
 analyticsRouter.get(
-  "/analytics/owner",authenticated, ownerOnly,
+  "/analytics/owner",
+  authenticated,
+  ownerOnly,
   getOwnerAnalytics
 );
 
 // User route
 analyticsRouter.get(
-  "/analytics/user/:userId",authenticated, userOnly, 
+  "/analytics/user/:userId",
+  authenticated,
+  userOnly,
   getUserAnalytics
 );
 
 // Smart route that auto-detects role
 analyticsRouter.get(
-  "/analytics",authenticated,
+  "/analytics",
+  authenticated,
   getRoleBasedAnalytics
 );
