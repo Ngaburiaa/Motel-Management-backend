@@ -53,9 +53,6 @@ app.use(
   })
 );
 
-// ✅ Handle preflight requests for all routes
-app.use(cors());
-
 
 // 🧾 Logging middleware
 app.use(logger);
